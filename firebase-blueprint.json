@@ -1,0 +1,77 @@
+{
+  "entities": {
+    "Admin": {
+      "title": "Admin",
+      "description": "Administrator of the system",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "createdAt": { "type": "number", "description": "Timestamp" }
+      },
+      "required": ["email", "createdAt"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Drink category",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "order": { "type": "number" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["name", "order", "createdAt"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Drink product",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "categoryId": { "type": "string" },
+        "priceM": { "type": "number" },
+        "priceL": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["name", "categoryId", "isActive", "createdAt"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "A customer's order",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "preparing", "ready", "completed", "cancelled"]
+        },
+        "total": { "type": "number" },
+        "items": {
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["userId", "status", "total", "items", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Stores admin users."
+    },
+    "categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Stores drink categories."
+    },
+    "products/{productId}": {
+      "schema": "Product",
+      "description": "Stores drink products."
+    },
+    "orders/{orderId}": {
+      "schema": "Order",
+      "description": "Stores customer orders."
+    }
+  }
+}
